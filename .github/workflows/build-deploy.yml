@@ -45,7 +45,7 @@ jobs:
       #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
 
-      - name: NPM Install
+      - name: NPM Instal
         run: npm install # Add your specific npm install command
 
       - name: Docker build and push
