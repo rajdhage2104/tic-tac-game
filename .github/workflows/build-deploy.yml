@@ -5,8 +5,27 @@ on:
     branches:
       - main
 
+env:
+  AWS_REGION : "ap-south-1"
+permissions:
+  id-token: write
+  contents: read
 
 jobs:
+  OIDC:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git clone the repository
+        uses: actions/checkout@v3
+
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::628425575853:role/role-github-actions
+          aws-region: ${{ env.AWS_REGION}}
+
+
+
   build:
     name: Build
     runs-on: ubuntu-latest
@@ -43,13 +62,13 @@ jobs:
 
   deploy:
     needs: build
-    runs-on: self-hosted # Use your self-hosted runner label here
+    runs-on: ubuntu-latest
 
     steps:
       - name: Pull the Docker imagee
         run: docker pull 8956366123/tic-tac-toe:latest
 
-      - name: Run the containerr
+      - name: Run the container
         run: docker run -d --name ticccgame -p 3000:3000 8956366123/tic-tac-toe:latest
 
 
