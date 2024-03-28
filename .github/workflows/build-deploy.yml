@@ -49,7 +49,7 @@ jobs:
       - name: Pull the Docker imagee
         run: docker pull 8956366123/tic-tac-toe:latest
 
-      - name: Run the container
+      - name: Run the containerr
         run: docker run -d --name ticccgame -p 3000:3000 8956366123/tic-tac-toe:latest
 
 
